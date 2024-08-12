@@ -600,13 +600,7 @@ while task.wait() do
 end
 end)
 
-MiscTab:AddToggle('LootAll',{Text='Loot All',Default=false}):AddKeyPicker('LootAllKey', {Default='Non',SyncToggleState=true,Mode='Toggle',Text='Loot All',NoUI=false})
 
-Toggles.LootAll:OnChanged(function()
-  for i = 1, 20 do
-      game:GetService("Workspace").LocalPlayer.RemoteEvent:FireServer(12, i, true)
-  end
-end)
 
 local XRAY22 = false
 MiscTab:AddToggle('XRAY', {Text = 'XRAY', Default = false}):AddKeyPicker('XRAYKey', {Default='Non',SyncToggleState=true,Mode='Toggle',Text='XRAY',NoUI=false}):OnChanged(function()
