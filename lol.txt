@@ -630,14 +630,6 @@ game:GetService("Players").LocalPlayer.RemoteEvent:FireServer(ohNumber1, ohNumbe
 end
 end)
 
-
-local Misc = {
-Settings = {
-  JumpShoot = false,
-  NoADS = false,
-}
-}
-
 ExploitsTab:AddToggle('JumpShoot',{Text='jump shoot',Default=false}):OnChanged(function(Value)
 Misc.Settings.JumpShoot = Value
 end)
