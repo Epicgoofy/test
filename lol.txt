@@ -388,34 +388,24 @@ local FieldOfViewTab = FieldOfViewTabBox:AddTab('field of view')
 
 --* Field Of View *--
 
-local FieldOfViewEnabled = false
-local FieldOfViewValue = 70
-local CurrentSliderValue3 = 70
-game:GetService("RunService").RenderStepped:Connect(function()
-local fovFunc = nil
-for i,v in pairs(getreg()) do
-if type(v) == "function" and getfenv(v).script.Name == "Camera" and #getupvalues(v) >= 18 then
-  fovFunc = v
-end
-end
-setupvalue(fovFunc,18,FieldOfViewValue)
-end)
+local varsglobal = {
+    visuals = {
+        FovChanger = true, 
+        FovAdd = 120,
+        OldFov = workspace.CurrentCamera.FieldOfView,
+        ZoomAmt = 0,
+        FovZoom = false,
+    },
+}
 
-FieldOfViewTab:AddToggle('FieldOfView', { Text = 'enabled', Default = false }):AddKeyPicker('fieldofviewkey', { Default = 'Non', SyncToggleState = true, Mode = 'Toggle', Text = 'field of view', NoUI = true }):OnChanged(function(value)
-FieldOfViewEnabled = value
-if not FieldOfViewEnabled then
-FieldOfViewValue = 70
-else
-FieldOfViewValue = CurrentSliderValue3
+local function updateFOV()
+    if varsglobal.visuals.FovChanger then
+        workspace.CurrentCamera.FieldOfView = varsglobal.visuals.OldFov + varsglobal.visuals.FovAdd
+    else
+        workspace.CurrentCamera.FieldOfView = varsglobal.visuals.OldFov
+    end
 end
-end)
-
-FieldOfViewTab:AddSlider('FieldOfViewSlider', { Text = 'field of view:', Suffix = "Non", Default = 70, Min = 30, Max = 120, Rounding = 0, Compact = false }):OnChanged(function(sliderValue)
-CurrentSliderValue3 = sliderValue
-if FieldOfViewEnabled then
-FieldOfViewValue = sliderValue
-end
-end)
+game:GetService("RunService").RenderStepped:Connect(updateFOV)
 
 
 local TrashTalkTabBox = Tabs.Misc:AddRightTabbox('trash talk')
