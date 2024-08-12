@@ -552,7 +552,7 @@ RightGroupBox:AddLabel('✘CallmeKujo✘')
 local RightGroupBox = Tabs.Credits:AddRightGroupbox('DISCORD')
 RightGroupBox:AddLabel('https://discord.gg/sywX7uE9mj')
 
---// MISC \\-- // fix \\-- 
+--// MISC \\-- //fix \\-- 
 local RightGroupBox = Tabs.Misc:AddRightGroupbox('FREE CAM')
 RightGroupBox:AddLabel('T = FREE CAM')
 
@@ -600,7 +600,13 @@ while task.wait() do
 end
 end)
 
+MiscTab:AddToggle('LootAll',{Text='Loot All',Default=false}):AddKeyPicker('LootAllKey', {Default='Non',SyncToggleState=true,Mode='Toggle',Text='Loot All',NoUI=false})
 
+Toggles.LootAll:OnChanged(function()
+  for i = 1, 20 do
+      game:GetService("Players").LocalPlayer.RemoteEvent:FireServer(12, i, true)
+  end
+end)
 
 local XRAY22 = false
 MiscTab:AddToggle('XRAY', {Text = 'XRAY', Default = false}):AddKeyPicker('XRAYKey', {Default='Non',SyncToggleState=true,Mode='Toggle',Text='XRAY',NoUI=false}):OnChanged(function()
@@ -629,6 +635,28 @@ local ohBoolean3 = false
 game:GetService("Players").LocalPlayer.RemoteEvent:FireServer(ohNumber1, ohNumber2, ohBoolean3)
 end
 end)
+
+
+local NoSlowDown = false
+local old = getrenv()._G.modules.Character.SetSprintBlocked
+ExploitsTab:AddToggle('NOSLOWDOWN',{Text='no slowdown',Default=false}):OnChanged(function(Value)
+NoSlowDown = Value
+getrenv()._G.modules.Character.SetSprintBlocked = function(...)
+local args = {...}
+if NoSlowDown then
+  args[1] = false
+  return old(unpack(args))
+end
+return old(...)
+end
+end)
+
+local Misc = {
+Settings = {
+  JumpShoot = false,
+  NoADS = false,
+}
+}
 
 ExploitsTab:AddToggle('JumpShoot',{Text='jump shoot',Default=false}):OnChanged(function(Value)
 Misc.Settings.JumpShoot = Value
