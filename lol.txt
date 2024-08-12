@@ -631,20 +631,6 @@ end
 end)
 
 
-local NoSlowDown = false
-local old = getrenv()._G.modules.Character.SetSprintBlocked
-ExploitsTab:AddToggle('NOSLOWDOWN',{Text='no slowdown',Default=false}):OnChanged(function(Value)
-NoSlowDown = Value
-getrenv()._G.modules.Character.SetSprintBlocked = function(...)
-local args = {...}
-if NoSlowDown then
-  args[1] = false
-  return old(unpack(args))
-end
-return old(...)
-end
-end)
-
 local Misc = {
 Settings = {
   JumpShoot = false,
